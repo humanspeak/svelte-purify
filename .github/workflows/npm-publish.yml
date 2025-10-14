@@ -469,6 +469,8 @@ jobs:
                   rm -f ./.npmrc
                   pnpm config set @humanspeak:registry https://registry.npmjs.org/
                   pnpm publish --provenance --access public --no-git-checks
+              env:
+                  NODE_AUTH_TOKEN: ${{ secrets.NPM_GITHUB_TOKEN }}
 
             - name: Cleanup on failure
               if: failure() && steps.create_release.outcome == 'success'
