@@ -1,16 +1,15 @@
 name: Cache Cleanup
 
 permissions:
-    actions: write
+    actions: read
 
 on:
     schedule:
         - cron: 0 0 1 * * # Monthly cleanup
-    workflow_dispatch: # Manual trigger
 
 jobs:
     cleanup:
-        runs-on: ubuntu-latest
+        runs-on: blacksmith-2vcpu-ubuntu-2404 # trunk-ignore(actionlint/runner-label)
         steps:
             - name: Cleanup
               env:

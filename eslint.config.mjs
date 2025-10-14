@@ -94,6 +94,10 @@ export default [
             parserOptions: {
                 parser: ts.parser
             }
+        },
+        rules: {
+            'prefer-const': ['off'],
+            'svelte/no-navigation-without-resolve': ['off'] // Allow external links
         }
     },
     {
@@ -112,7 +116,6 @@ export default [
                     varsIgnorePattern: '^\\$\\$(Props|Events|Slots|Generic)$'
                 }
             ],
-            'svelte/no-navigation-without-resolve': ['off'],
             'prefer-const': ['off'],
             'no-unused-vars': ['off']
         }

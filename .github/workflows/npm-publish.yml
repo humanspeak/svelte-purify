@@ -40,7 +40,7 @@ on:
 
 jobs:
     check-if-merged:
-        runs-on: ubuntu-latest
+        runs-on: blacksmith-2vcpu-ubuntu-2404 # trunk-ignore(actionlint/runner-label)
         outputs:
             should_run: ${{ steps.check.outputs.should_run }}
         steps:
@@ -58,7 +58,7 @@ jobs:
     debug-check:
         needs: check-if-merged
         if: needs.check-if-merged.outputs.should_run == 'true'
-        runs-on: ubuntu-latest
+        runs-on: blacksmith-2vcpu-ubuntu-2404 # trunk-ignore(actionlint/runner-label)
         steps:
             - name: Checkout
               uses: actions/checkout@v4 # zizmor: ignore[unpinned-uses]
@@ -196,7 +196,7 @@ jobs:
     build:
         needs: [check-if-merged, debug-check]
         if: needs.check-if-merged.outputs.should_run == 'true'
-        runs-on: ubuntu-latest
+        runs-on: blacksmith-2vcpu-ubuntu-2404 # trunk-ignore(actionlint/runner-label)
         strategy:
             matrix:
                 node-version: [20, 22]
@@ -218,14 +218,15 @@ jobs:
               uses: actions/setup-node@v4 # zizmor: ignore[unpinned-uses]
               with:
                   node-version: ${{ matrix.node-version }}
-                  cache: pnpm
 
             - name: Install
               run: |
-                  pnpm install --prefer-offline --no-frozen-lockfile --ignore-scripts
+                  pnpm install --prefer-offline --frozen-lockfile --ignore-scripts
 
             - name: Test
-              run: pnpm test
+              run: |
+                  pnpm build
+                  pnpm test
 
             - name: Upload Vitest Results
               if: always()
@@ -243,20 +244,56 @@ jobs:
                   parallel: true
               if: matrix.node-version == '22'
 
-            - name: Cache dependencies
-              uses: actions/cache@v4 # zizmor: ignore[unpinned-uses]
+            # Removed dependency caching to reduce cache-poisoning risk
+
+    playwright-tests:
+        needs: [check-if-merged, debug-check]
+        if: false
+        timeout-minutes: 60
+        runs-on: blacksmith-2vcpu-ubuntu-2404 # trunk-ignore(actionlint/runner-label)
+        steps:
+            - uses: actions/checkout@v4 # zizmor: ignore[unpinned-uses]
               with:
-                  path: ~/.pnpm-store
-                  key: ${{ runner.os }}-node-${{ matrix.node-version }}-${{ hashFiles('**/pnpm-lock.yaml') }}
-                  restore-keys: |
-                      ${{ runner.os }}-node-${{ matrix.node-version }}-
-                      ${{ runner.os }}-node-
+                  persist-credentials: false
+                  token: ${{ secrets.ACTIONS_KEY }}
+
+            - uses: pnpm/action-setup@v4 # zizmor: ignore[unpinned-uses]
+              with:
+                  version: 10
+
+            - uses: actions/setup-node@v4 # zizmor: ignore[unpinned-uses]
+              with:
+                  node-version: 22
+
+            - name: Install dependencies
+              run: pnpm install --prefer-offline --frozen-lockfile --ignore-scripts
+
+            - name: Install Playwright Browsers
+              run: pnpm exec playwright install --with-deps
+
+            - name: Run Playwright tests
+              run: pnpm run test:e2e
+
+            - name: Upload Playwright Results
+              if: always()
+              uses: trunk-io/analytics-uploader@main # zizmor: ignore[unpinned-uses]
+              with:
+                  junit-paths: junit-playwright.xml
+                  org-slug: ${{ secrets.TRUNK_ORG_SLUG }}
+                  token: ${{ secrets.TRUNK_TOKEN }}
+
+            - uses: actions/upload-artifact@v4 # zizmor: ignore[unpinned-uses]
+              if: always()
+              with:
+                  name: junit-playwright.xml
+                  path: junit-playwright.xml
+                  retention-days: 10
 
     # 4. Coverage reporting (depends on tests)
     coverage-report:
-        needs: [check-if-merged, build]
+        needs: [check-if-merged, build, playwright-tests]
         if: needs.check-if-merged.outputs.should_run == 'true'
-        runs-on: ubuntu-latest
+        runs-on: blacksmith-2vcpu-ubuntu-2404 # trunk-ignore(actionlint/runner-label)
         steps:
             - name: Coveralls Finished
               uses: coverallsapp/github-action@v2 # zizmor: ignore[unpinned-uses]
@@ -266,9 +303,11 @@ jobs:
 
     # 5. Publishing job (main deployment logic)
     publish-github-packages:
-        needs: [check-if-merged, build, coverage-report]
+        needs: [check-if-merged, build, playwright-tests, coverage-report]
         if: needs.check-if-merged.outputs.should_run == 'true'
         runs-on: ubuntu-latest
+        environment:
+            name: npm-publish
         permissions:
             contents: write
             packages: write
@@ -294,9 +333,10 @@ jobs:
                   node-version: 22
                   registry-url: https://registry.npmjs.org
                   scope: '@humanspeak'
+                  cache: '' # zizmor: ignore[cache-poisoning]
 
             - name: Install
-              run: pnpm install --prefer-offline --no-frozen-lockfile --ignore-scripts
+              run: pnpm install --prefer-offline --frozen-lockfile --ignore-scripts
 
             - name: Check Publishing Status
               id: publish-check
@@ -474,8 +514,6 @@ jobs:
                   rm -f ./.npmrc
                   pnpm config set @humanspeak:registry https://registry.npmjs.org/
                   pnpm publish --provenance --access public --no-git-checks
-              env:
-                  NODE_AUTH_TOKEN: ${{ secrets.NPM_GITHUB_TOKEN }}
 
             - name: Cleanup on failure
               if: failure() && steps.create_release.outcome == 'success'
