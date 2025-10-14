@@ -1,6 +1,6 @@
 {
     "name": "@humanspeak/svelte-purify",
-    "version": "0.0.2",
+    "version": "0.0.3",
     "description": "Safe HTML rendering for Svelte powered by DOMPurify. SSR-ready, browser-only entry, and edge-friendly options.",
     "keywords": [
         "svelte",
