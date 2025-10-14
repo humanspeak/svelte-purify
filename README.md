@@ -48,6 +48,29 @@ yarn add @humanspeak/svelte-purify
 <SveltePurify {html} />
 ```
 
+### Limit output length
+
+```svelte
+<SveltePurify {html} maxLength={120} />
+```
+
+### Render hooks (preHtml/postHtml)
+
+You can render UI before and after the sanitized HTML. Each hook receives the sanitized HTML length as a number.
+
+```svelte
+<script lang="ts">
+    import { SveltePurify } from '@humanspeak/svelte-purify'
+    const html = `<p><strong>Hello</strong> world!</p>`
+</script>
+
+<SveltePurify
+    {html}
+    preHtml={(len) => <>Sanitized length: {len}</>}
+    postHtml={(len) => <> • {len} chars</>}
+/>
+```
+
 ## Options (DOMPurify)
 
 Pass any `DOMPurify.sanitize` options. We don’t hide anything—use the full power of DOMPurify.
@@ -70,10 +93,13 @@ Note: The component returns sanitized HTML as a string (not DOM nodes).
 
 ## Props
 
-| Component      | Prop      | Type                                       | Description                       |
-| -------------- | --------- | ------------------------------------------ | --------------------------------- |
-| `SveltePurify` | `html`    | `string`                                   | Raw HTML to sanitize and render   |
-|                | `options` | `Parameters<typeof DOMPurify.sanitize>[1]` | DOMPurify options (all supported) |
+| Component      | Prop        | Type                                       | Description                                    |
+| -------------- | ----------- | ------------------------------------------ | ---------------------------------------------- |
+| `SveltePurify` | `html`      | `string`                                   | Raw HTML to sanitize and render                |
+|                | `options`   | `Parameters<typeof DOMPurify.sanitize>[1]` | DOMPurify options (all supported)              |
+|                | `maxLength` | `number`                                   | If set, truncates the sanitized HTML string    |
+|                | `preHtml`   | `Snippet<[number]>`                        | Renders before HTML; receives sanitized length |
+|                | `postHtml`  | `Snippet<[number]>`                        | Renders after HTML; receives sanitized length  |
 
 ## Exports
 
