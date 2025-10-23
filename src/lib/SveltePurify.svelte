@@ -17,9 +17,11 @@
         preHtml = undefined,
         postHtml = undefined
     }: Props = $props()
+
     const sanitize = $derived(new BrowserDOMPurify(html, options))
     const truncatedHtml = $derived(maxLength ? sanitize.html.slice(0, maxLength) : sanitize.html)
     let mounted = $state(false)
+
     onMount(() => {
         mounted = true
     })

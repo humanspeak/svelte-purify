@@ -7,7 +7,7 @@ cli:
 plugins:
     sources:
         - id: trunk
-          ref: v1.7.2
+          ref: v1.7.3
           uri: https://github.com/trunk-io/plugins
 # Many linters and tools depend on runtimes - configure them here. (https://docs.trunk.io/runtimes)
 runtimes:
@@ -67,8 +67,9 @@ lint:
         #       - polars
         #       - sqlglot
         #       - sentry_sdk
-        - sql-formatter@15.6.8
-        - eslint@9.35.0:
+        - oxipng@9.1.5
+        - sql-formatter@15.6.10
+        - eslint@9.38.0:
               packages:
                   - svelte-eslint-parser
                   - '@eslint/js'
@@ -78,27 +79,27 @@ lint:
                   - eslint-plugin-import
         # - typescript@5.3.2
         - sort-package-json@3.4.0
-        - black@25.1.0
-        - actionlint@1.7.7
+        - black@25.9.0
+        - actionlint@1.7.8
         - taplo@0.10.0
         - bandit@1.8.6
-        - checkov@3.2.470
+        - checkov@3.2.487
         - git-diff-check
-        - hadolint@2.13.1
-        - isort@6.0.1
+        - hadolint@2.14.0
+        - isort@7.0.0
         - markdownlint@0.45.0
-        - osv-scanner@2.2.2
+        - osv-scanner@2.2.3
         - prettier@3.6.2:
               packages:
                   - prettier-plugin-svelte
                   - prettier-plugin-organize-imports
                   - prettier-plugin-tailwindcss
                   - prettier-plugin-sort-json
-        - ruff@0.12.12
+        - ruff@0.14.1
         - shellcheck@0.11.0
         - shfmt@3.6.0
         - svgo@4.0.0
-        - trufflehog@3.90.6
+        - trufflehog@3.90.11
         - yamllint@1.37.1
 actions:
     disabled:

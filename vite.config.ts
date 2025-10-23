@@ -1,34 +1,42 @@
 import { sveltekit } from '@sveltejs/kit/vite'
-import { defineConfig } from 'vite'
+import { svelteTesting } from '@testing-library/svelte/vite'
+import { configDefaults, defineConfig } from 'vitest/config'
 
 export default defineConfig({
-    plugins: [sveltekit()],
-    resolve: {
-        ...(process.env.VITEST
-            ? {
-                  conditions: ['browser']
-              }
-            : {})
-    },
+    plugins: [sveltekit(), svelteTesting()],
+    resolve: process.env.VITEST
+        ? {
+              conditions: ['browser']
+          }
+        : undefined,
     test: {
+        include: ['src/lib/**/*.test.ts'],
         globals: true,
         environment: 'jsdom',
-        include: ['src/lib/**/*.test.ts'],
-        expect: { requireAssertions: true },
+        setupFiles: ['vitest.setup.ts'],
         coverage: {
             reporter: 'lcov',
-            exclude: ['docs/**', '.trunk/**', '.svelte-kit/**', 'tests/**', 'src/routes/**']
+            exclude: [
+                'docs/**',
+                '.trunk/**',
+                '.svelte-kit/**',
+                'tests/**',
+                'src/routes/**',
+                'src/lib/test/**'
+            ]
         },
-        projects: [
-            {
-                extends: './vite.config.ts',
-                test: {
-                    name: 'server',
-                    environment: 'node',
-                    include: ['src/**/*.{test,spec}.{js,ts}'],
-                    exclude: ['src/**/*.svelte.{test,spec}.{js,ts}']
-                }
-            }
+        exclude: [
+            ...configDefaults.exclude,
+            'node_modules/**',
+            'dist/**',
+            'docs/**',
+            'src/routes/**',
+            'coverage/**',
+            'tests/**',
+            'src/lib/test/**',
+            'playwright.config.ts',
+            'tests-results/**',
+            '**/docs/**/*'
         ],
         reporters: ['verbose', ['junit', { outputFile: './junit-vitest.xml' }]]
     },
