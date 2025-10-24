@@ -13,7 +13,7 @@ export default defineConfig({
         include: ['src/lib/**/*.test.ts'],
         globals: true,
         environment: 'jsdom',
-        setupFiles: ['vitest.setup.ts'],
+        setupFiles: ['./vitest.setup.ts'],
         coverage: {
             reporter: 'lcov',
             exclude: [

@@ -1,11 +1,11 @@
-import createDOMPurify, { type Config } from 'dompurify'
+import createDOMPurify, { type Config, type WindowLike } from 'dompurify'
 
 export class BrowserDOMPurify {
     private _html = $state<string>('')
     private _options = $state<Config | undefined>(undefined)
     private _result = $derived(
         typeof window !== 'undefined'
-            ? createDOMPurify(window).sanitize(this._html, {
+            ? createDOMPurify(window as unknown as WindowLike).sanitize(this._html, {
                   ...this._options,
                   RETURN_DOM: false,
                   RETURN_DOM_FRAGMENT: false

@@ -1,18 +1,17 @@
 {
-	"extends": "./.svelte-kit/tsconfig.json",
-	"compilerOptions": {
+    "compilerOptions": {
         "allowJs": true,
         "checkJs": true,
         "esModuleInterop": true,
-        "allowSyntheticDefaultImports": true,
         "forceConsistentCasingInFileNames": true,
         "resolveJsonModule": true,
         "skipLibCheck": true,
-        "experimentalDecorators": true,
         "sourceMap": true,
-        "inlineSources": true,
         "strict": true,
-		"module": "ESNext",
-		"moduleResolution": "bundler"
-	}
+        "module": "NodeNext",
+        "moduleResolution": "NodeNext",
+        "experimentalDecorators": true,
+        "types": ["vitest/globals"]
+    },
+    "extends": "./.svelte-kit/tsconfig.json"
 }
