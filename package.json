@@ -24,7 +24,7 @@
         "dom",
         "dompurify-config"
     ],
-    "homepage": "https://github.com/humanspeak/svelte-purify#readme",
+    "homepage": "https://purify.svelte.page",
     "bugs": {
         "url": "https://github.com/humanspeak/svelte-purify/issues"
     },
