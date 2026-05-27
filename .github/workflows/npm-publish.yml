@@ -313,6 +313,7 @@ jobs:
         needs: [check-if-merged, build, playwright-tests, coverage-report]
         if: needs.check-if-merged.outputs.should_run == 'true'
         runs-on: blacksmith-2vcpu-ubuntu-2404 # trunk-ignore(actionlint/runner-label)
+        environment: production
         permissions:
             contents: write
             packages: write
@@ -336,11 +337,9 @@ jobs:
               uses: actions/setup-node@v6 # zizmor: ignore[unpinned-uses,cache-poisoning]
               with:
                   node-version: 24
-                  registry-url: https://registry.npmjs.org
-                  scope: '@humanspeak'
 
             - name: Install
-              run: pnpm install --prefer-offline --frozen-lockfile --ignore-scripts
+              run: pnpm install --filter . --prefer-offline --frozen-lockfile --ignore-scripts --config.engine-strict=false
 
             - name: Check Publishing Status
               id: publish-check
@@ -518,12 +517,12 @@ jobs:
             - name: Publish
               if: steps.publish-check.outputs.should_publish == 'true'
               run: |
-                  # Ensure we're publishing to the correct scope
-                  rm -f ./.npmrc
+                  # Clean up any existing npmrc files that might interfere with OIDC
+                  rm -f ./.npmrc ~/.npmrc
+                  # Configure registry for scoped package
                   pnpm config set @humanspeak:registry https://registry.npmjs.org/
+                  # Publish using pnpm with OIDC (trusted publishing)
                   pnpm publish --provenance --access public --no-git-checks
-              env:
-                  NODE_AUTH_TOKEN: ${{ secrets.NPM_GITHUB_TOKEN }}
 
             - name: Cleanup on failure
               if: failure() && steps.create_release.outcome == 'success'
