@@ -8,48 +8,48 @@
 </script>
 
 <svelte:head>
-    <title>Svelte Markdown - High Performance Markdown Parser for Svelte 5</title>
+    <title>Svelte Purify · Safe HTML rendering for Svelte 5 powered by DOMPurify</title>
     <meta
         name="description"
-        content="A powerful, customizable markdown parser for Svelte 5 with TypeScript support. Features include custom renderers, HTML parsing, GitHub-style slugs, and extensive testing coverage."
+        content="Safe HTML rendering for Svelte powered by DOMPurify. SSR-ready, browser-only entry, and edge-friendly options. XSS protection with a tiny, runes-friendly Svelte 5 wrapper."
     />
 
     <!-- Open Graph / Social Media -->
-    <meta property="og:title" content="Svelte Markdown - Modern Markdown Parser for Svelte" />
+    <meta property="og:title" content="Svelte Purify · Safe HTML rendering powered by DOMPurify" />
     <meta
         property="og:description"
-        content="Transform markdown into Svelte components with support for custom renderers, HTML parsing, and TypeScript. Perfect for documentation, blogs, and content-rich applications."
+        content="A tiny, friendly HTML sanitizer for Svelte 5. Strips scripts, unsafe URLs, and sneaky attributes via DOMPurify — SSR-ready, edge-friendly, full TypeScript."
     />
     <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://markdown.svelte.page" />
-    <meta property="og:image" content="{imageLocation}svelte-page-opengraph.png" />
+    <meta property="og:url" content="https://purify.svelte.page" />
+    <meta property="og:image" content="{imageLocation}svelte-purify-opengraph.png" />
 
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Svelte Markdown - TypeScript-Ready Parser" />
+    <meta name="twitter:title" content="Svelte Purify · Safe HTML for Svelte 5" />
     <meta
         name="twitter:description"
-        content="Build better documentation and content-rich applications with this modern Markdown parser for Svelte 5"
+        content="DOMPurify-powered HTML sanitization for Svelte 5. SSR-ready, edge-friendly, XSS-safe, and runes-friendly."
     />
-    <meta name="twitter:image" content="{imageLocation}svelte-page-twitter.png" />
+    <meta name="twitter:image" content="{imageLocation}svelte-purify-twitter.png" />
 
     <!-- Keywords -->
     <meta
         name="keywords"
-        content="svelte, markdown, parser, typescript, svelte5, documentation, html, converter, marked, github-slugger, component, sveltekit, formatting, content management"
+        content="svelte, sveltekit, dompurify, sanitize, sanitization, xss, security, html, safe-html, render, renderer, ssr, edge, svelte5, svelte-component, svelte-library"
     />
 
     <!-- Additional Meta -->
     <meta name="author" content="Humanspeak, Inc." />
     <meta name="robots" content="index, follow" />
-    <link rel="canonical" href="https://markdown.svelte.page" />
+    <link rel="canonical" href="https://purify.svelte.page" />
 
     <!-- JSON-LD structured data -->
     <script type="application/ld+json">
         {
             "@context": "https://schema.org",
             "@type": "SoftwareApplication",
-            "name": "Svelte Markdown",
+            "name": "Svelte Purify",
             "applicationCategory": "DeveloperApplication",
             "operatingSystem": "Any",
             "offers": {
@@ -63,13 +63,13 @@
                 "url": "https://humanspeak.com"
             },
             "programmingLanguage": ["Svelte", "TypeScript"],
-            "description": "A powerful markdown parser for Svelte 5 that transforms markdown into customizable Svelte components with TypeScript support and extensive testing coverage.",
+            "description": "Safe HTML rendering for Svelte 5 powered by DOMPurify. SSR-ready by default with a browser-only entry, edge-friendly options, and full TypeScript support.",
             "license": "MIT",
-            "url": "https://markdown.svelte.page",
-            "downloadUrl": "https://www.npmjs.com/package/@humanspeak/svelte-markdown",
+            "url": "https://purify.svelte.page",
+            "downloadUrl": "https://www.npmjs.com/package/@humanspeak/svelte-purify",
             "requirements": "Svelte 5.0 or higher",
-            "releaseNotes": "https://github.com/humanspeak/svelte-markdown/releases",
-            "keywords": "svelte, markdown, parser, typescript, documentation"
+            "releaseNotes": "https://github.com/humanspeak/svelte-purify/releases",
+            "keywords": "svelte, dompurify, sanitize, xss, security, safe-html"
         }
     </script>
 </svelte:head>
