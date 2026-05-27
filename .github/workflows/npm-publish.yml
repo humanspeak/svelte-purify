@@ -61,7 +61,7 @@ jobs:
         runs-on: blacksmith-2vcpu-ubuntu-2404 # trunk-ignore(actionlint/runner-label)
         steps:
             - name: Checkout
-              uses: actions/checkout@v4 # zizmor: ignore[unpinned-uses]
+              uses: actions/checkout@v6 # zizmor: ignore[unpinned-uses]
               with:
                   persist-credentials: false
                   token: ${{ secrets.ACTIONS_KEY }}
@@ -199,13 +199,13 @@ jobs:
         runs-on: blacksmith-2vcpu-ubuntu-2404 # trunk-ignore(actionlint/runner-label)
         strategy:
             matrix:
-                node-version: [20, 22]
+                node-version: [20, 22, 24]
         permissions:
             contents: read
             packages: write
         steps:
             - name: Checkout
-              uses: actions/checkout@v4 # zizmor: ignore[unpinned-uses]
+              uses: actions/checkout@v6 # zizmor: ignore[unpinned-uses]
               with:
                   persist-credentials: false
                   token: ${{ secrets.ACTIONS_KEY }}
@@ -215,7 +215,7 @@ jobs:
                   version: 10
 
             - name: Use Node.js ${{ matrix.node-version }}
-              uses: actions/setup-node@v4 # zizmor: ignore[unpinned-uses]
+              uses: actions/setup-node@v6 # zizmor: ignore[unpinned-uses]
               with:
                   node-version: ${{ matrix.node-version }}
                   cache: pnpm
@@ -244,7 +244,7 @@ jobs:
               if: matrix.node-version == '22'
 
             - name: Cache dependencies
-              uses: actions/cache@v4 # zizmor: ignore[unpinned-uses]
+              uses: actions/cache@v5 # zizmor: ignore[unpinned-uses]
               with:
                   path: ~/.pnpm-store
                   key: ${{ runner.os }}-node-${{ matrix.node-version }}-${{ hashFiles('**/pnpm-lock.yaml') }}
@@ -258,7 +258,7 @@ jobs:
         timeout-minutes: 60
         runs-on: blacksmith-2vcpu-ubuntu-2404 # trunk-ignore(actionlint/runner-label)
         steps:
-            - uses: actions/checkout@v4 # zizmor: ignore[unpinned-uses]
+            - uses: actions/checkout@v6 # zizmor: ignore[unpinned-uses]
               with:
                   persist-credentials: false
                   token: ${{ secrets.ACTIONS_KEY }}
@@ -267,9 +267,9 @@ jobs:
               with:
                   version: 10
 
-            - uses: actions/setup-node@v4 # zizmor: ignore[unpinned-uses]
+            - uses: actions/setup-node@v6 # zizmor: ignore[unpinned-uses]
               with:
-                  node-version: 22
+                  node-version: 24
                   cache: pnpm
 
             - name: Install dependencies
@@ -312,7 +312,8 @@ jobs:
     publish-github-packages:
         needs: [check-if-merged, build, playwright-tests, coverage-report]
         if: needs.check-if-merged.outputs.should_run == 'true'
-        runs-on: ubuntu-latest
+        runs-on: blacksmith-2vcpu-ubuntu-2404 # trunk-ignore(actionlint/runner-label)
+        environment: production
         permissions:
             contents: write
             packages: write
@@ -322,7 +323,7 @@ jobs:
 
         steps:
             - name: Checkout
-              uses: actions/checkout@v4 # zizmor: ignore[unpinned-uses]
+              uses: actions/checkout@v6 # zizmor: ignore[unpinned-uses]
               with:
                   persist-credentials: false
                   token: ${{ secrets.GITHUB_TOKEN }}
@@ -332,15 +333,13 @@ jobs:
               with:
                   version: 10
 
-            - name: Use Node.js - 22
-              uses: actions/setup-node@v4 # zizmor: ignore[unpinned-uses]
+            - name: Use Node.js - 24
+              uses: actions/setup-node@v6 # zizmor: ignore[unpinned-uses,cache-poisoning]
               with:
-                  node-version: 22
-                  registry-url: https://registry.npmjs.org
-                  scope: '@humanspeak'
+                  node-version: 24
 
             - name: Install
-              run: pnpm install --prefer-offline --frozen-lockfile --ignore-scripts
+              run: pnpm install --filter . --prefer-offline --frozen-lockfile --ignore-scripts --config.engine-strict=false
 
             - name: Check Publishing Status
               id: publish-check
@@ -495,34 +494,38 @@ jobs:
             - name: Create Release
               if: steps.publish-check.outputs.should_publish == 'true'
               id: create_release
-              uses: softprops/action-gh-release@v2 # zizmor: ignore[unpinned-uses]
-              with:
-                  tag_name: ${{ steps.version.outputs.new_version }}
-                  name: Release ${{ steps.version.outputs.new_version }}
-                  body: |
-                      Changes in this Release
-                      ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.custom_message || github.event.pull_request.title }}
-
-                      ${{ github.event_name == 'pull_request' && format('For more details, see the [Pull Request]({0})', github.event.pull_request.html_url) || '' }}
-                  draft: false
-                  prerelease: false
-                  make_latest: true
-                  generate_release_notes: false
               env:
                   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+                  NEW_VERSION: ${{ steps.version.outputs.new_version }}
+                  EVENT_NAME: ${{ github.event_name }}
+                  CUSTOM_MESSAGE: ${{ github.event.inputs.custom_message }}
+                  PR_TITLE: ${{ github.event.pull_request.title }}
+                  PR_URL: ${{ github.event.pull_request.html_url }}
+              run: |
+                  BODY="Changes in this Release
+                  ${CUSTOM_MESSAGE:-$PR_TITLE}"
+                  if [[ "$EVENT_NAME" == "pull_request" ]]; then
+                      BODY="$BODY
+
+                  For more details, see the [Pull Request]($PR_URL)"
+                  fi
+                  gh release create "$NEW_VERSION" \
+                      --title "Release $NEW_VERSION" \
+                      --notes "$BODY" \
+                      --latest
 
             - name: Publish
               if: steps.publish-check.outputs.should_publish == 'true'
               run: |
-                  # Ensure we're publishing to the correct scope
-                  rm -f ./.npmrc
+                  # Clean up any existing npmrc files that might interfere with OIDC
+                  rm -f ./.npmrc ~/.npmrc
+                  # Configure registry for scoped package
                   pnpm config set @humanspeak:registry https://registry.npmjs.org/
+                  # Publish using pnpm with OIDC (trusted publishing)
                   pnpm publish --provenance --access public --no-git-checks
-              env:
-                  NODE_AUTH_TOKEN: ${{ secrets.NPM_GITHUB_TOKEN }}
 
             - name: Cleanup on failure
-              if: failure() && steps.create_release.outcome == 'success'
+              if: failure() && steps.version.outputs.new_version != ''
               env:
                   RELEASE_VERSION: ${{ steps.version.outputs.new_version }}
                   GITHUB_TOKEN: ${{ secrets.ACTIONS_KEY }}
@@ -534,9 +537,9 @@ jobs:
                   fi
 
                   # Proceed with cleanup only if validation passes
-                  gh release delete "$RELEASE_VERSION" --yes
-                  git tag -d "$RELEASE_VERSION"
-                  git push --delete origin "$RELEASE_VERSION"
+                  gh release delete "$RELEASE_VERSION" --yes || true
+                  git tag -d "$RELEASE_VERSION" || true
+                  git push --delete origin "$RELEASE_VERSION" || true
 
             - name: Notify on failure
               if: failure()

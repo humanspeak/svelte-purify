@@ -7,7 +7,7 @@ cli:
 plugins:
     sources:
         - id: trunk
-          ref: v1.7.3
+          ref: v1.10.0
           uri: https://github.com/trunk-io/plugins
 # Many linters and tools depend on runtimes - configure them here. (https://docs.trunk.io/runtimes)
 runtimes:
@@ -18,8 +18,8 @@ runtimes:
     #         value: api/
     enabled:
         - go@1.21.0
-        - python@3.12.2
-        - node@22.16.0
+        - python@3.14.4
+        - node@24.16.0
 # This is the section where you manage your linters. (https://docs.trunk.io/check/configuration)
 lint:
     files:
@@ -29,6 +29,7 @@ lint:
     ignore:
         - linters: [ALL]
           paths:
+              - '**/worker-configuration.d.ts'
               - convex/_generated/**
         - linters: [osv-scanner]
           paths:
@@ -67,9 +68,10 @@ lint:
         #       - polars
         #       - sqlglot
         #       - sentry_sdk
-        - oxipng@9.1.5
-        - sql-formatter@15.6.10
-        - eslint@9.38.0:
+        - grype@0.112.0
+        - oxipng@10.1.1
+        - sql-formatter@15.8.0
+        - eslint@10.4.0:
               packages:
                   - svelte-eslint-parser
                   - '@eslint/js'
@@ -78,29 +80,29 @@ lint:
                   - eslint-plugin-svelte
                   - eslint-plugin-import
         # - typescript@5.3.2
-        - sort-package-json@3.4.0
-        - black@25.9.0
-        - actionlint@1.7.8
+        - sort-package-json@3.6.1
+        - black@26.5.1
+        - actionlint@1.7.12
         - taplo@0.10.0
-        - bandit@1.8.6
-        - checkov@3.2.487
+        - bandit@1.9.4
+        - checkov@3.2.529
         - git-diff-check
         - hadolint@2.14.0
-        - isort@7.0.0
-        - markdownlint@0.45.0
-        - osv-scanner@2.2.3
-        - prettier@3.6.2:
+        - isort@8.0.1
+        - markdownlint@0.48.0
+        - osv-scanner@2.3.8
+        - prettier@3.8.3:
               packages:
                   - prettier-plugin-svelte
                   - prettier-plugin-organize-imports
                   - prettier-plugin-tailwindcss
                   - prettier-plugin-sort-json
-        - ruff@0.14.1
+        - ruff@0.15.14
         - shellcheck@0.11.0
         - shfmt@3.6.0
-        - svgo@4.0.0
-        - trufflehog@3.90.11
-        - yamllint@1.37.1
+        - svgo@4.0.1
+        - trufflehog@3.95.3
+        - yamllint@1.38.0
 actions:
     disabled:
         - trunk-announce
