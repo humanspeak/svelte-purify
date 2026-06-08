@@ -109,8 +109,8 @@ importers:
   docs:
     dependencies:
       '@humanspeak/svelte-motion':
-        specifier: ^0.5.3
-        version: 0.5.3(svelte@5.55.9(@typescript-eslint/types@8.60.0))
+        specifier: ^0.6.5
+        version: 0.6.5(svelte@5.55.9(@typescript-eslint/types@8.60.0))
       '@humanspeak/svelte-purify':
         specifier: file:..
         version: file:(svelte@5.55.9(@typescript-eslint/types@8.60.0))
@@ -924,8 +924,8 @@ packages:
     resolution: {integrity: sha512-/zUx+yOsIrG4Y43Eh2peDeKCxlRt/gET6aHfaKpuq267qXdYDFViVHfMaLyygZOnl0kGWxFIgsBy8QFuTLUXEQ==}
     engines: {node: '>=18.18.0'}
 
-  '@humanspeak/svelte-motion@0.5.3':
-    resolution: {integrity: sha512-EAOfRNcrrkUwnY6jFQyiALdwpHWEOwwM5EaEuP4O42ND0HVa5L5CR8h7EHYawGit7B9mFIMjgzO48VemUOnI6g==}
+  '@humanspeak/svelte-motion@0.6.5':
+    resolution: {integrity: sha512-HKYYlxsJMlT7/GycREa+yVUyAhFTdS/q47lZiZ3ZPtOzzAGBXSxFhp4uERqzyUQZJ35XXYw/GGyWhrpt4+KSMA==}
     peerDependencies:
       svelte: ^5.0.0
 
@@ -5283,7 +5283,7 @@ snapshots:
       '@humanfs/core': 0.19.1
       '@humanwhocodes/retry': 0.4.3
 
-  '@humanspeak/svelte-motion@0.5.3(svelte@5.55.9(@typescript-eslint/types@8.60.0))':
+  '@humanspeak/svelte-motion@0.6.5(svelte@5.55.9(@typescript-eslint/types@8.60.0))':
     dependencies:
       acorn: 8.16.0
       motion: 12.40.0
@@ -6425,13 +6425,9 @@ snapshots:
       convert-source-map: 2.0.0
       tinyrainbow: 3.1.0
 
-  acorn-import-attributes@1.9.5(acorn@8.15.0):
+  acorn-import-attributes@1.9.5(acorn@8.16.0):
     dependencies:
-      acorn: 8.15.0
-
-  acorn-jsx@5.3.2(acorn@8.15.0):
-    dependencies:
-      acorn: 8.15.0
+      acorn: 8.16.0
 
   acorn-jsx@5.3.2(acorn@8.16.0):
     dependencies:
@@ -7285,8 +7281,8 @@ snapshots:
 
   espree@10.4.0:
     dependencies:
-      acorn: 8.15.0
-      acorn-jsx: 5.3.2(acorn@8.15.0)
+      acorn: 8.16.0
+      acorn-jsx: 5.3.2(acorn@8.16.0)
       eslint-visitor-keys: 4.2.1
 
   espree@11.2.0:
@@ -7533,8 +7529,8 @@ snapshots:
 
   import-in-the-middle@3.0.1:
     dependencies:
-      acorn: 8.15.0
-      acorn-import-attributes: 1.9.5(acorn@8.15.0)
+      acorn: 8.16.0
+      acorn-import-attributes: 1.9.5(acorn@8.16.0)
       cjs-module-lexer: 2.2.0
       module-details-from-path: 1.0.4
 
