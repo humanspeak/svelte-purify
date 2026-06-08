@@ -135,7 +135,7 @@ importers:
         version: 3.12.1
       '@lucide/svelte':
         specifier: ^1.16.0
-        version: 1.16.0(svelte@5.55.9(@typescript-eslint/types@8.60.0))
+        version: 1.17.0(svelte@5.55.9(@typescript-eslint/types@8.60.0))
       '@playwright/test':
         specifier: ^1.60.0
         version: 1.60.0
@@ -1130,8 +1130,8 @@ packages:
   '@layerstack/utils@2.0.0-next.14':
     resolution: {integrity: sha512-1I2CS0Cwgs53W35qVg1eBdYhB/CiPvL3s0XE61b8jWkTHxgjBF65yYNgXjW74kv7WI7GsJcWMNBufPd0rnu9kA==}
 
-  '@lucide/svelte@1.16.0':
-    resolution: {integrity: sha512-AvvPJnaWxeiNkAljI5MsSEc84yHPLMaWQIAJOcbX7k9au/f9ITS7cxTTQiautDiOFKVOXiYdZ+d6mtl88J+Kbg==}
+  '@lucide/svelte@1.17.0':
+    resolution: {integrity: sha512-q06YCFBN5CO8cd1ADmLCxWRVMVb7xxvHzqC0lvNoxGa+FLW6Cd1Y1AOxgbQk4Iwe68vkAMCRveNHint4WoaVKg==}
     peerDependencies:
       svelte: ^5
 
@@ -5452,7 +5452,7 @@ snapshots:
       d3-time-format: 4.1.0
       lodash-es: 4.17.21
 
-  '@lucide/svelte@1.16.0(svelte@5.55.9(@typescript-eslint/types@8.60.0))':
+  '@lucide/svelte@1.17.0(svelte@5.55.9(@typescript-eslint/types@8.60.0))':
     dependencies:
       svelte: 5.55.9(@typescript-eslint/types@8.60.0)
 
