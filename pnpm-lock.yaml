@@ -116,7 +116,7 @@ importers:
         version: file:(svelte@5.55.9(@typescript-eslint/types@8.60.0))
       '@sentry/cloudflare':
         specifier: ^10.54.0
-        version: 10.54.0(@cloudflare/workers-types@4.20260527.1)
+        version: 10.56.0(@cloudflare/workers-types@4.20260527.1)
       '@sentry/sveltekit':
         specifier: ^10.54.0
         version: 10.54.0(@cloudflare/workers-types@4.20260527.1)(@sveltejs/kit@2.61.1(@opentelemetry/api@1.9.0)(@sveltejs/vite-plugin-svelte@7.1.2(svelte@5.55.9(@typescript-eslint/types@8.60.0))(vite@8.0.14(@types/node@25.9.1)(esbuild@0.28.0)(jiti@2.6.1)(tsx@4.22.3)))(svelte@5.55.9(@typescript-eslint/types@8.60.0))(typescript@6.0.3)(vite@8.0.14(@types/node@25.9.1)(esbuild@0.28.0)(jiti@2.6.1)(tsx@4.22.3)))(rollup@4.52.5)(svelte@5.55.9(@typescript-eslint/types@8.60.0))(vite@8.0.14(@types/node@25.9.1)(esbuild@0.28.0)(jiti@2.6.1)(tsx@4.22.3))
@@ -1621,8 +1621,21 @@ packages:
       '@cloudflare/workers-types':
         optional: true
 
+  '@sentry/cloudflare@10.56.0':
+    resolution: {integrity: sha512-4PH6joEJbS2+f0yWSatE/vPfE4sbtDQxdPDcsiQ8642nEH8WxKIWWPgRknfLRClmShxzQpwDXJZRJc3rcm4QtQ==}
+    engines: {node: '>=18'}
+    peerDependencies:
+      '@cloudflare/workers-types': ^4.x
+    peerDependenciesMeta:
+      '@cloudflare/workers-types':
+        optional: true
+
   '@sentry/core@10.54.0':
     resolution: {integrity: sha512-yC/bc8N5ut6vk9X/ugTnIFAbzaSZ2uGoKiHRGzt7VseDIrjXk5ENDJP0m7Rbchuozr41kBv2QB3mPcHUhfB43w==}
+    engines: {node: '>=18'}
+
+  '@sentry/core@10.56.0':
+    resolution: {integrity: sha512-L+u1dIz5SANrmST5jhIwETtt4apILgKrylv12X4hKJU0PvZl+NorjeV/ty3MwzpKQPg6b6q6qMOSLc1rLpy3iQ==}
     engines: {node: '>=18'}
 
   '@sentry/node-core@10.54.0':
@@ -5832,7 +5845,16 @@ snapshots:
     optionalDependencies:
       '@cloudflare/workers-types': 4.20260527.1
 
+  '@sentry/cloudflare@10.56.0(@cloudflare/workers-types@4.20260527.1)':
+    dependencies:
+      '@opentelemetry/api': 1.9.1
+      '@sentry/core': 10.56.0
+    optionalDependencies:
+      '@cloudflare/workers-types': 4.20260527.1
+
   '@sentry/core@10.54.0': {}
+
+  '@sentry/core@10.56.0': {}
 
   '@sentry/node-core@10.54.0(@opentelemetry/api@1.9.1)(@opentelemetry/core@2.7.1(@opentelemetry/api@1.9.1))(@opentelemetry/instrumentation@0.214.0(@opentelemetry/api@1.9.1))(@opentelemetry/sdk-trace-base@2.7.1(@opentelemetry/api@1.9.1))(@opentelemetry/semantic-conventions@1.41.1)':
     dependencies:
