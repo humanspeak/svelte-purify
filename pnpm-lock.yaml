@@ -10,7 +10,7 @@ importers:
     dependencies:
       dompurify:
         specifier: ^3.4.7
-        version: 3.4.7
+        version: 3.4.9
     devDependencies:
       '@eslint/compat':
         specifier: ^2.1.0
@@ -2631,8 +2631,11 @@ packages:
   dom-accessibility-api@0.6.3:
     resolution: {integrity: sha512-7ZgogeTnjuHbo+ct10G9Ffp0mif17idi0IyWNVA/wcwcm7NPOD/WEHVP3n7n3MhXqxoIYm8d6MuZohYWIZ4T3w==}
 
-  dompurify@3.4.7:
-    resolution: {integrity: sha512-2jBxDJY4RR06tQNy4w5FlFH7kfxsQZlufd0sbv+chfHCxeJwrFw2baUDsSwvBISD4K4RDbd0PTfy3uNXsR6siA==}
+  dompurify@3.4.10:
+    resolution: {integrity: sha512-0xzNv0e7oYC6yyuOGZIABPM4qtg3QxLFniDNPP4ZP90wR8Yq3zgwpRbrNiT4N3IKqDbbYFEJLV+JWEs19aZ//w==}
+
+  dompurify@3.4.9:
+    resolution: {integrity: sha512-4dPSRMRDqHvs0V4YDFCsaIZo4if5u0xM+llyxiM2fwuZFdKArUBAF3VtI2+n8NKg9P870WMdYk0UhqQNoWXbfQ==}
 
   dotenv@16.6.1:
     resolution: {integrity: sha512-uBq4egWHTcTt33a72vpSG0z3HnPuIl6NqYcTrKEg2azoEyl2hpW0zqlxysq2pK9HlDIHyHyakeYaYnSAwd8bow==}
@@ -5296,7 +5299,7 @@ snapshots:
 
   '@humanspeak/svelte-purify@file:(svelte@5.55.9(@typescript-eslint/types@8.60.0))':
     dependencies:
-      dompurify: 3.4.7
+      dompurify: 3.4.10
       svelte: 5.55.9(@typescript-eslint/types@8.60.0)
 
   '@humanwhocodes/module-importer@1.0.1': {}
@@ -6956,7 +6959,11 @@ snapshots:
 
   dom-accessibility-api@0.6.3: {}
 
-  dompurify@3.4.7:
+  dompurify@3.4.10:
+    optionalDependencies:
+      '@types/trusted-types': 2.0.7
+
+  dompurify@3.4.9:
     optionalDependencies:
       '@types/trusted-types': 2.0.7
 
@@ -8204,7 +8211,7 @@ snapshots:
       '@posthog/core': 1.29.12
       '@posthog/types': 1.376.3
       core-js: 3.46.0
-      dompurify: 3.4.7
+      dompurify: 3.4.10
       fflate: 0.4.8
       preact: 10.29.2
       query-selector-shadow-dom: 1.0.1
