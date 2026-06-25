@@ -130,6 +130,25 @@ Allow an extra tag:
 />
 ```
 
+<!-- docs-kit:ecosystem start -->
+
+## Svelte 5 ecosystem
+
+Part of the [Humanspeak](https://humanspeak.com) family of runes-native Svelte 5 packages:
+
+| Package | Description |
+| --- | --- |
+| [@humanspeak/svelte-markdown](https://markdown.svelte.page) | Runtime markdown renderer for Svelte |
+| [@humanspeak/svelte-virtual-list](https://virtuallist.svelte.page) | Virtual scrolling for Svelte |
+| [@humanspeak/svelte-motion](https://motion.svelte.page) | Framer Motion for Svelte 5 |
+| [@humanspeak/svelte-headless-table](https://table.svelte.page) | Headless data tables for Svelte |
+| [@humanspeak/svelte-diff-match-patch](https://diff.svelte.page) | Diff comparison for Svelte |
+| **[@humanspeak/svelte-purify](https://purify.svelte.page)** — _this package_ | HTML sanitisation for Svelte |
+| [@humanspeak/svelte-virtual-chat](https://virtualchat.svelte.page) | Virtual chat viewport for Svelte 5 |
+| [@humanspeak/memory-cache](https://memory.svelte.page) | In-memory cache for TypeScript |
+| [@humanspeak/svelte-json-view-lite](https://jsonview.svelte.page) | JSON tree viewer for Svelte 5 |
+| [@humanspeak/svelte-scoped-props](https://scoped.svelte.page) | Scoped class props for Svelte |
+
 ## License
 
 MIT © [Humanspeak, Inc.](LICENSE)
@@ -138,4 +157,4 @@ MIT © [Humanspeak, Inc.](LICENSE)
 
 Made with ❤️ by [Humanspeak](https://humanspeak.com)
 
-Special thanks to [@jill64](https://github.com/jill64) — her years of Svelte contributions taught me so much and inspired this work.
+<!-- docs-kit:ecosystem end -->
