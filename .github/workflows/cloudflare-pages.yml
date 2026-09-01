@@ -17,7 +17,7 @@ on:
 
 jobs:
     deploy:
-        runs-on: blacksmith-2vcpu-ubuntu-2404 # trunk-ignore(actionlint/runner-label)
+        runs-on: ubuntu-latest
         name: Deploy
         steps:
             - name: Checkout
