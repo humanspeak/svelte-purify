@@ -312,9 +312,7 @@ jobs:
     publish-github-packages:
         needs: [check-if-merged, build, playwright-tests, coverage-report]
         if: needs.check-if-merged.outputs.should_run == 'true'
-        # npm provenance (--provenance) requires a GitHub-hosted runner; a
-        # self-hosted blacksmith runner is rejected with E422. Every other repo
-        # in the fleet runs this job on ubuntu-latest.
+        # npm provenance (--provenance) requires a GitHub-hosted runner.
         runs-on: ubuntu-latest
         environment: production
         permissions:
