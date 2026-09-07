@@ -45,7 +45,7 @@
         "posthog-js": "^1.376.3"
     },
     "devDependencies": {
-        "@cloudflare/workers-types": "^4.20260527.1",
+        "@cloudflare/workers-types": "^5.20260904.1",
         "@eslint/compat": "^2.1.0",
         "@internationalized/date": "^3.12.1",
         "@lucide/svelte": "^1.16.0",
