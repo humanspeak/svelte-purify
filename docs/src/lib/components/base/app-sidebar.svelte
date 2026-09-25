@@ -30,7 +30,7 @@
         try {
             // Fetch from our own API route to avoid CORS
             const response = await fetch('/api/components')
-            components = await response.json<SvelteComponent[]>()
+            components = (await response.json()) as SvelteComponent[]
         } catch (error) {
             console.error('Failed to fetch components:', error)
         } finally {
