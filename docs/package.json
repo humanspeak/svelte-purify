@@ -6,6 +6,7 @@
         "build": "vite build && node ./scripts/check-favicon.mjs",
         "cf-typegen": "wrangler types && mv worker-configuration.d.ts src/",
         "check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
+        "check:favicon": "node ./scripts/check-favicon.mjs",
         "check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
         "deploy": "pnpm run build && wrangler pages deploy",
         "dev": "vite dev",
@@ -18,8 +19,7 @@
         "sitemap:watch": "chokidar 'src/routes/**/*.svelte' 'src/routes/**/*.svx' 'src/routes/**/*.md' --ignore 'src/routes/examples/+page.ts' -c 'node ./scripts/generate-sitemap-manifest.mjs' --initial --silent",
         "test": "pnpm run test:unit -- --run && pnpm run test:e2e",
         "test:e2e": "playwright test",
-        "test:unit": "vitest",
-        "check:favicon": "node ./scripts/check-favicon.mjs"
+        "test:unit": "vitest"
     },
     "overrides": {
         "@sveltejs/adapter-cloudflare": {
@@ -43,16 +43,16 @@
         "@humanspeak/svelte-purify": "file:..",
         "@sentry/cloudflare": "^10.54.0",
         "@sentry/sveltekit": "^10.54.0",
-        "posthog-js": "^1.376.3"
+        "posthog-js": "^1.438.1"
     },
     "devDependencies": {
-        "@cloudflare/workers-types": "^4.20260527.1",
+        "@cloudflare/workers-types": "^4.20260702.1",
         "@eslint/compat": "^2.1.0",
         "@internationalized/date": "^3.12.1",
         "@lucide/svelte": "^1.16.0",
         "@playwright/test": "^1.60.0",
         "@sveltejs/adapter-auto": "^7.0.1",
-        "@sveltejs/adapter-cloudflare": "^7.2.8",
+        "@sveltejs/adapter-cloudflare": "^7.2.9",
         "@sveltejs/kit": "^2.61.1",
         "@sveltejs/vite-plugin-svelte": "^7.1.2",
         "@tailwindcss/aspect-ratio": "^0.4.2",
@@ -102,7 +102,7 @@
         "vaul-svelte": "^1.0.0-next.7",
         "vite": "^8.0.14",
         "vitest": "^4.1.7",
-        "wrangler": "^4.95.0",
+        "wrangler": "^4.148.0",
         "zod": "^4.4.3"
     },
     "volta": {

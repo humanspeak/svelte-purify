@@ -1,6 +1,8 @@
 import { env } from '$env/dynamic/public'
 import * as Sentry from '@sentry/sveltekit'
 import { handleErrorWithSentry, replayIntegration } from '@sentry/sveltekit'
+import type { HandleClientError } from '@sveltejs/kit'
+import posthog from 'posthog-js'
 
 Sentry.init({
     dsn: env.PUBLIC_SENTRY_DSN,
@@ -20,5 +22,27 @@ Sentry.init({
     integrations: [replayIntegration()]
 })
 
-// If you have a custom error handler, pass it to `handleErrorWithSentry`
-export const handleError = handleErrorWithSentry()
+export async function init() {
+    if (!env.PUBLIC_POSTHOG_PROJECT_TOKEN || !env.PUBLIC_POSTHOG_HOST) {
+        return
+    }
+
+    posthog.init(env.PUBLIC_POSTHOG_PROJECT_TOKEN, {
+        ['api_host']: env.PUBLIC_POSTHOG_HOST,
+        ['ui_host']: 'https://us.posthog.com',
+        defaults: '2026-01-30',
+        ['capture_exceptions']: true
+    })
+}
+
+const posthogHandleError: HandleClientError = async ({ error, status, message }) => {
+    posthog.captureException(error)
+
+    return {
+        message,
+        status
+    }
+}
+
+// Sentry wraps the PostHog handler so both receive client errors
+export const handleError = handleErrorWithSentry(posthogHandleError)
