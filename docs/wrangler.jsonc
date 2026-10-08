@@ -10,6 +10,11 @@
     "pages_build_output_dir": ".svelte-kit/cloudflare",
     "observability": {
         "enabled": true
+    },
+    "vars": {
+        // checkov:skip=CKV_SECRET_6: PostHog project tokens are public client-side SDK identifiers.
+        "PUBLIC_POSTHOG_PROJECT_TOKEN": "phc_3Yf0JxhoUoiBaevrHPecsERricralYoOS4V0PEoeFfI",
+        "PUBLIC_POSTHOG_HOST": "https://t.svelte.page"
     }
     /**
      * Smart Placement
@@ -26,7 +31,6 @@
      * Environment Variables
      * https://developers.cloudflare.com/workers/wrangler/configuration/#environment-variables
      */
-    // "vars": { "PUBLIC_CONVEX_URL": "" }
     /**
      * Note: Use secrets to store sensitive data.
      * https://developers.cloudflare.com/workers/configuration/secrets/
