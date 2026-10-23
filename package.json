@@ -95,7 +95,7 @@
         "@types/jsdom": "^28.0.3",
         "@types/node": "^25.9.1",
         "@vitest/coverage-v8": "^4.1.7",
-        "concurrently": "^9.2.1",
+        "concurrently": "^9.2.5",
         "eslint": "^10.4.0",
         "eslint-config-prettier": "^10.1.8",
         "eslint-plugin-svelte": "^3.18.0",
@@ -112,7 +112,7 @@
         "svelte-check": "^4.4.8",
         "typescript": "^6.0.3",
         "typescript-eslint": "^8.60.0",
-        "vite": "^8.0.14",
+        "vite": "^8.3.5",
         "vitest": "^4.1.7"
     },
     "peerDependencies": {
@@ -130,7 +130,10 @@
     "pnpm": {
         "onlyBuiltDependencies": [
             "esbuild"
-        ]
+        ],
+        "overrides": {
+            "sharp@<0.35.5": "^0.35.5"
+        }
     },
     "tags": [
         "svelte",
