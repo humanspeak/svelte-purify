@@ -1,7 +1,7 @@
 <script lang="ts">
     import { mode } from 'mode-watcher'
-    import * as Sidebar from '$lib/shadcn/components/ui/sidebar/index.js'
-    import * as Collapsible from '$lib/shadcn/components/ui/collapsible/index.js'
+    import * as Sidebar from '#lib/shadcn/components/ui/sidebar/index.js'
+    import * as Collapsible from '#lib/shadcn/components/ui/collapsible/index.js'
     import { fade } from 'svelte/transition'
     import { onMount } from 'svelte'
 

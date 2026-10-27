@@ -1,9 +1,9 @@
 <script lang="ts">
-    import { localStore } from '$lib/state/localStore.svelte'
-    import { Textarea } from '$lib/shadcn/components/ui/textarea/index.js'
+    import { localStore } from '#lib/state/localStore.svelte.js'
+    import { Textarea } from '#lib/shadcn/components/ui/textarea/index.js'
     import { SveltePurify } from '@humanspeak/svelte-purify'
-    import * as Card from '$lib/shadcn/components/ui/card/index.js'
-    import MainContainer from '$lib/components/MainContainer.svelte'
+    import * as Card from '#lib/shadcn/components/ui/card/index.js'
+    import MainContainer from '#lib/components/MainContainer.svelte'
     import { page } from '$app/state'
 
     let urlText = page.url.searchParams.get('html')
