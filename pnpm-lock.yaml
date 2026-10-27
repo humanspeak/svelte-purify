@@ -109,8 +109,8 @@ importers:
   docs:
     dependencies:
       '@humanspeak/svelte-purify':
-        specifier: file:..
-        version: file:(svelte@5.57.2(@typescript-eslint/types@8.60.0))
+        specifier: workspace:*
+        version: link:..
       '@sentry/cloudflare':
         specifier: ^11
         version: 11.9.0(@cloudflare/workers-types@4.20260702.1)(vite@8.0.14(@types/node@25.9.1)(esbuild@0.28.1)(jiti@2.6.1)(tsx@4.22.3))(wrangler@4.148.0(@cloudflare/workers-types@4.20260702.1)(@types/node@25.9.1))
@@ -707,12 +707,6 @@ packages:
 
   '@humanspeak/svelte-motion@2.5.1':
     resolution: {integrity: sha512-Jh4wJr4LkSgME+mnR8+Fu61SLgKPBJp2T/Lamyhi/WLTXL4b1DgAtiXs2TC2lYlpXZY0CSSfNeA9vKmobeyIZg==}
-    peerDependencies:
-      svelte: ^5.0.0
-
-  '@humanspeak/svelte-purify@file:':
-    resolution: {directory: '', type: directory}
-    engines: {node: '>=18'}
     peerDependencies:
       svelte: ^5.0.0
 
@@ -4709,11 +4703,6 @@ snapshots:
     transitivePeerDependencies:
       - react
       - react-dom
-
-  '@humanspeak/svelte-purify@file:(svelte@5.57.2(@typescript-eslint/types@8.60.0))':
-    dependencies:
-      dompurify: 3.4.16
-      svelte: 5.57.2(@typescript-eslint/types@8.60.0)
 
   '@humanwhocodes/module-importer@1.0.1': {}
 
