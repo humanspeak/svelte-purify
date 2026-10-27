@@ -43,7 +43,7 @@
         }
     },
     "dependencies": {
-        "@humanspeak/svelte-purify": "file:..",
+        "@humanspeak/svelte-purify": "workspace:*",
         "@sentry/cloudflare": "^11",
         "@sentry/sveltekit": "^11",
         "posthog-js": "^1.438.1"
