@@ -1,11 +1,11 @@
 <script lang="ts">
-    import Header from '$lib/components/base/Header.svelte'
+    import Header from '#lib/components/base/Header.svelte'
 
     import '../../app.css'
     import { ModeWatcher } from 'mode-watcher'
-    import * as Sidebar from '$lib/shadcn/components/ui/sidebar/index.js'
-    import AppSidebar from '$lib/components/base/app-sidebar.svelte'
-    import Footer from '$lib/components/base/Footer.svelte'
+    import * as Sidebar from '#lib/shadcn/components/ui/sidebar/index.js'
+    import AppSidebar from '#lib/components/base/app-sidebar.svelte'
+    import Footer from '#lib/components/base/Footer.svelte'
 
     const { children } = $props()
 </script>

@@ -1,8 +1,8 @@
 <script lang="ts">
-    import { Button } from '$lib/shadcn/components/ui/button'
+    import { Button } from '#lib/shadcn/components/ui/button/index.js'
     import { mode } from 'mode-watcher'
     import ModeChanger from './ModeChanger.svelte'
-    import * as Sidebar from '$lib/shadcn/components/ui/sidebar/index.js'
+    import * as Sidebar from '#lib/shadcn/components/ui/sidebar/index.js'
 </script>
 
 <div class="grid grid-cols-3 items-center">

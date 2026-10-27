@@ -1,7 +1,6 @@
-import { env } from '$env/dynamic/public'
+import { PUBLIC_ENVIRONMENT, PUBLIC_SENTRY_DSN } from '$app/env/public'
 import * as Sentry from '@sentry/cloudflare'
-import type { Handle } from '@sveltejs/kit'
-import { sequence } from '@sveltejs/kit/hooks'
+import { sequence, type Handle } from '@sveltejs/kit/hooks'
 
 const securityHeaders = {
     'Strict-Transport-Security': 'max-age=31536000; includeSubDomains',
@@ -18,8 +17,8 @@ const securityHeaders = {
 
 export const sentryHandle: Handle = async ({ event, resolve }) => {
     Sentry.sentryPagesPlugin(() => ({
-        environment: env.PUBLIC_ENVIRONMENT ?? 'local',
-        dsn: env.PUBLIC_SENTRY_DSN
+        environment: PUBLIC_ENVIRONMENT,
+        dsn: PUBLIC_SENTRY_DSN
     }))
     const response = await resolve(event)
     Object.entries(securityHeaders).forEach(([header, value]) => {
